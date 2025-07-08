@@ -18,9 +18,9 @@ public class App {
         int indiceProduto = 0;
         int indiceVendedor = 0;
         int indiceCliente = 0;
-        Cliente clienteVenda = new Cliente(null, null, null, 1);
-        Vendedor vendedorVenda = new Vendedor(null, null, null);
-        Produto produtoVenda = new Produto(null, 1);
+        Cliente clienteVenda = new Cliente(null,null,null);
+        Vendedor vendedorVenda = new Vendedor(null, null,null);
+        Produto produtoVenda = new Produto(null,1,1);
 
         System.out.println("----------------------------------------------");
         System.out.println("------ Realizando cadastro de sua conta ------");
@@ -65,7 +65,7 @@ public class App {
             System.out.println("Digite 1 para acessar o módulo produto");
             System.out.println("Digite 2 para acessar o módulo cliente");
             System.out.println("Digite 3 para acessar o módulo vendedor");
-            System.out.println("Digite 4 para registrar uma venda");
+            System.out.println("Digite 4 para acessar o módulo venda");
             int menuModulo = sc.nextInt();
 
             if(menuModulo == 1){
@@ -85,8 +85,10 @@ public class App {
                     String nome = sc.next();
                     System.out.println("Digite a quantidade do estoque");
                     int estoque = sc.nextInt();
+                    System.out.println("Digite o valor do produto");
+                    int valor = sc.nextInt();
                     // Chamando o construtor de Produto para fazer o registro
-                    Produto produto = new Produto(nome, estoque);
+                    Produto produto = new Produto(nome, estoque, valor);
                     produto.mostrarProduto();
                     listaProdutos.add(produto);
                 } else if (opcao == 2) {
@@ -145,6 +147,7 @@ public class App {
             }else if(menuModulo == 2){
                 System.out.println("Digite 1 para cadastrar cliente");
                 System.out.println("Digite 2 para listar clientes");
+                System.out.println("Digite 3 para voltar ao menu inicial");
                 int menuCliente = sc.nextInt();
 
                 if(menuCliente == 1){
@@ -157,9 +160,7 @@ public class App {
                     String cpfCliente = sc.next();
                     System.out.println("Digite o contato");
                     String contatoCliente = sc.next();
-                    System.out.println("Digite sua idade");
-                    int idadeCliente = sc.nextInt();
-                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, contatoCliente, idadeCliente);
+                    Cliente cliente = new Cliente(nomeCliente, cpfCliente, contatoCliente);
                     listaClientes.add(cliente);
                     System.out.println("Cliente adicionado com sucesso.");
                 }else if(menuCliente == 2){
@@ -175,6 +176,7 @@ public class App {
             }else if(menuModulo == 3){
                 System.out.println("Digite 1 para cadastrar vendedor");
                 System.out.println("Digite 2 para listar vendedores");
+                System.out.println("Digite 3 para voltar ao menu inicial");
                 int menuVendedor = sc.nextInt();
                 if(menuVendedor == 1){
                     System.out.println("Digite seu nome");
@@ -185,7 +187,7 @@ public class App {
                     String contatoVendedor = sc.next();
                     Vendedor vendedor = new Vendedor(nomeVendedor, cpfVendedor, contatoVendedor);
                     listaVendedores.add(vendedor);
-                    System.out.println("Cliente adicionado com sucesso.");
+                    System.out.println("Vendedor adicionado com sucesso.");
                 }else if(menuVendedor == 2){
                     System.out.println("----------------------------------------------");
                     System.out.println("-------- Listando todos os vendedores --------");
@@ -203,12 +205,12 @@ public class App {
                     System.out.println("digite 3 para voltar ao meu inicial");
                     int menuVenda = sc.nextInt();
                     if(menuVenda == 1){
-                        System.out.println("Tudo certo, digite o íncide do cliente que você quer registrar a venda");
+                        System.out.println("Tudo certo, digite o índide do cliente que você quer registrar a venda");
                         // Cliente
                         indiceCliente = 1;
                         for (Cliente cliente : listaClientes) {
                             System.out.println("----------------------------------------------");
-                            System.out.println("Produto " + indiceCliente + ": ");
+                            System.out.println("Cliente " + indiceCliente + ": ");
                             cliente.mostrarCliente();
                             indiceCliente += 1;
                             System.out.println("----------------------------------------------");
@@ -248,7 +250,7 @@ public class App {
                         int indiceVendedores = 1;
                         for (Vendedor vendedor : listaVendedores) {
                             System.out.println("----------------------------------------------");
-                            System.out.println("Produto " + indiceVendedores + ": ");
+                            System.out.println("Vendedor " + indiceVendedores + ": ");
                             vendedor.mostrarVendedor();
                             indiceVendedores += 1;
                             System.out.println("----------------------------------------------");
@@ -265,14 +267,14 @@ public class App {
                         }
 
                         // Registrando venda
-                        Venda venda = new Venda(clienteVenda, produtoVenda, vendedorVenda);
+                        Venda venda = new Venda(produtoVenda, clienteVenda ,vendedorVenda);
                         listaVendas.add(venda);
                     }else if(menuVenda == 2){
                         System.out.println("----------------------------------------------");
                         System.out.println("---------- Listando todas as vendas ----------");
                         System.out.println("----------------------------------------------");
-                        for (Vendedor vendedor : listaVendedores) {
-                            vendedor.mostrarVendedor();
+                        for (Venda venda : listaVendas) {
+                            venda.mostrarVenda();
                         }
                     }else{
                         System.out.println("Voltando ao menu inicial...");
